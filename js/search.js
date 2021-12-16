@@ -18,12 +18,13 @@ function searchService(event) {
       if (data.results.length) {
         renderCard(data.results)
       } else {
-        throw 'По вашему запросу ничего не найдено'
+        throw `По вашему запросу "${searchInput.value}" - ничего не найдено`
       }
     })
     .then(() => {
       filmWeek.remove()
-      title.textContent = 'Результат поиска: '
+      title.textContent = `Результат поиска "${searchInput.value}":`
+      searchInput.value = null
     })
     .catch(err => {
       title.textContent = err
