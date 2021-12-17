@@ -3,7 +3,7 @@ import renderCard from './renderCard.js';
 
 const filmWeek = document.querySelector('.film-week')
 
-const firstRender = (data, { key }) => {
+const firstRender = (data, [key = null] ) => {
   const {
     vote_average,
     backdrop_path,
@@ -12,6 +12,7 @@ const firstRender = (data, { key }) => {
     original_name,
     original_title
   } = data
+  console.log('key = ', key)
   filmWeek.innerHTML = `
      <div class="container film-week__container" data-rating="${vote_average}">
          <div class="film-week__poster-wrapper">
@@ -23,7 +24,7 @@ const firstRender = (data, { key }) => {
          <h2 class="film-week__title">${name || title}</h2>
          ${key ? 
             `<a class="film-week__watch-trailer tube" 
-            href="https://youtu.be/${key}" 
+            href="https://youtu.be/${key.key}" 
             aria-label="смотреть трейлер"></a>` : 
             ``}
          
@@ -39,7 +40,7 @@ const renderVideo = async () => {
 
   const video = await getVideo(firstCard.id, firstCard.media_type)
 
-  firstRender(firstCard, video.results[0])
+  firstRender(firstCard, video.results)
   renderCard(otherCard);
 }
 
